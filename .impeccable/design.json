@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-01T00:00:00Z",
+  "title": "Design System: SMA-BE Pricing",
+  "extensions": {
+    "colorMeta": {
+      "bg": { "role": "neutral", "displayName": "Canvas Warm Grey", "canonical": "#f8f6f6", "tonalRamp": ["#1a1919", "#2f2d2d", "#524e4e", "#716a6a", "#a09898", "#c8c3c3", "#e4e0e0", "#f8f6f6"] },
+      "card": { "role": "neutral", "displayName": "Card White", "canonical": "#ffffff", "tonalRamp": ["#1a1a1a", "#333333", "#4d4d4d", "#808080", "#b3b3b3", "#d9d9d9", "#f0f0f0", "#ffffff"] },
+      "text-primary": { "role": "neutral", "displayName": "Text Primary", "canonical": "#2f2d2d", "tonalRamp": ["#0d0c0c", "#1a1919", "#2f2d2d", "#524e4e", "#716a6a", "#a09898", "#c8c3c3", "#e4e0e0"] },
+      "text-secondary": { "role": "neutral", "displayName": "Text Secondary", "canonical": "#716a6a", "tonalRamp": ["#1a1919", "#2f2d2d", "#524e4e", "#716a6a", "#a09898", "#c8c3c3", "#e4e0e0", "#f8f6f6"] },
+      "ribbon-bg": { "role": "secondary", "displayName": "Ribbon Lavender", "canonical": "#e8e6f4", "tonalRamp": ["#1a1730", "#2d2855", "#463f80", "#6558a8", "#8577c4", "#a89edb", "#ccc6eb", "#e8e6f4"] },
+      "ribbon-text": { "role": "secondary", "displayName": "Ribbon Plum", "canonical": "#3e235b", "tonalRamp": ["#110a19", "#1f1230", "#2d1a45", "#3e235b", "#5a3580", "#7a4faa", "#a07cca", "#c6b0e0"] },
+      "cta-green": { "role": "primary", "displayName": "Eneco Green", "canonical": "#007250", "tonalRamp": ["#001a12", "#003326", "#004d39", "#007250", "#009b6b", "#00c488", "#33d9a3", "#80ecc8"] },
+      "cta-green-hover": { "role": "primary", "displayName": "Eneco Green Hover", "canonical": "#005a3e", "tonalRamp": ["#001a12", "#003326", "#004d39", "#005a3e", "#007250", "#009b6b", "#33c498", "#80e0c0"] },
+      "check-green": { "role": "primary", "displayName": "Check Green", "canonical": "#009B65", "tonalRamp": ["#001a11", "#003322", "#004d35", "#00734f", "#009B65", "#00c480", "#33d9a0", "#80ecc8"] },
+      "link-underline": { "role": "primary", "displayName": "Link Underline Green", "canonical": "#84dc99", "tonalRamp": ["#0d2614", "#1a4d28", "#33804a", "#4db36b", "#6acc84", "#84dc99", "#a8e8b8", "#d0f4d8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Price amounts only. The largest type on any card." },
+      "title": { "displayName": "Title", "purpose": "Product names and euro symbol in the price block." },
+      "body": { "displayName": "Body", "purpose": "Feature text, conditional price labels. The workhorse." },
+      "label": { "displayName": "Label", "purpose": "Ribbon text and footnotes." },
+      "cta": { "displayName": "CTA", "purpose": "Button text and detail links." }
+    },
+    "shadows": [
+      { "name": "card-ambient", "value": "0px 4px 12px 0px rgba(47, 45, 45, 0.12)", "purpose": "Ambient lift on card surfaces. Warm-toned, diffuse, no directional light." }
+    ],
+    "motion": [
+      { "name": "button-hover", "value": "background 0.15s", "purpose": "CTA button background color transition on hover." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Full-width green CTA for product selection. Text-only, no icon.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Product selecteren</a>",
+      "css": ".ds-btn-primary { display: flex; align-items: center; justify-content: center; width: 100%; height: 60px; background: #007250; color: #fff; font-family: Etelka, system-ui, sans-serif; font-weight: 700; font-size: 18px; line-height: 28px; text-decoration: none; border-radius: 8px; transition: background 0.15s; } .ds-btn-primary:hover { background: #005a3e; }"
+    },
+    {
+      "name": "Detail Link",
+      "kind": "button",
+      "refersTo": "button-link",
+      "description": "Green text link with underline bar for secondary actions.",
+      "html": "<a class=\"ds-link\" href=\"#\">Bekijk de details</a>",
+      "css": ".ds-link { display: inline-flex; flex-direction: column; gap: 4px; font-family: Etelka, system-ui, sans-serif; font-weight: 700; font-size: 18px; line-height: 28px; color: #007250; text-decoration: none; width: fit-content; padding: 6px 0; } .ds-link::after { content: ''; display: block; height: 2px; background: #84dc99; }"
+    },
+    {
+      "name": "Pricing Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "White card with ambient shadow, rounded corners, subgrid-aligned rows.",
+      "html": "<article class=\"ds-card\"><h2 class=\"ds-card-title\">Zon &amp; Wind Flex One</h2><div class=\"ds-card-price\"><span class=\"ds-price-euro\">&euro;</span><span class=\"ds-price-amount\">119,12</span><span class=\"ds-price-period\">per maand</span></div></article>",
+      "css": ".ds-card { background: #ffffff; border-radius: 16px; overflow: clip; box-shadow: 0px 4px 12px 0px rgba(47, 45, 45, 0.12); padding: 24px; } .ds-card-title { font-family: Etelka, system-ui, sans-serif; font-weight: 700; font-size: 24px; line-height: 28px; color: #2f2d2d; margin-bottom: 16px; } .ds-card-price { display: flex; align-items: flex-end; gap: 8px; } .ds-price-euro { font-weight: 700; font-size: 24px; line-height: 28px; } .ds-price-amount { font-weight: 700; font-size: 32px; line-height: 36px; } .ds-price-period { font-weight: 300; font-size: 16px; line-height: 24px; letter-spacing: 0.3px; color: #716a6a; }"
+    },
+    {
+      "name": "Promotional Ribbon",
+      "kind": "custom",
+      "refersTo": "ribbon-default",
+      "description": "Lavender bar at card top with gift icon and promotion text.",
+      "html": "<div class=\"ds-ribbon\"><div class=\"ds-ribbon-item\"><svg class=\"ds-ribbon-icon\" viewBox=\"0 0 19.58 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M9.178 10.833V18.333H5.915C4.45 18.333 3.263 17.12 3.263 15.625v-4.792h5.915Zm7.139 0v4.792c0 1.496-1.187 2.708-2.652 2.708H10.402v-7.5h5.915ZM11.83 1.667c1.464 0 2.652 1.212 2.652 2.708 0 .537-.154 1.038-.418 1.46l2.05-.002c.563 0 1.02.389 1.02.868v2.431c0 .48-.457.868-1.02.868l-5.712-.001V5.833H9.178V10L3.467 10c-.563 0-1.02-.389-1.02-.868V6.7c0-.48.457-.868 1.02-.868l2.05.001a2.727 2.727 0 0 1-.418-1.459c0-1.496 1.187-2.708 2.652-2.708.82 0 1.554.381 2.04.978a2.618 2.618 0 0 1 2.04-.978ZM7.75 2.917c-.788 0-1.427.653-1.427 1.458 0 .765.577 1.393 1.31 1.453l.118.005h1.428V4.375l-.005-.12c-.06-.749-.673-1.338-1.423-1.338Zm4.08 0c-.789 0-1.428.653-1.428 1.458v1.458h1.428c.789 0 1.428-.653 1.428-1.458s-.64-1.458-1.428-1.458Z\" fill=\"#3E235B\"/></svg><span class=\"ds-ribbon-text\">Zon &amp; Wind Flex One: &euro;100 korting</span></div></div>",
+      "css": ".ds-ribbon { background: #e8e6f4; padding: 16px 24px; display: flex; flex-direction: column; gap: 16px; } .ds-ribbon-item { display: flex; align-items: center; gap: 8px; } .ds-ribbon-icon { width: 20px; height: 20px; flex-shrink: 0; } .ds-ribbon-text { font-family: Etelka, system-ui, sans-serif; font-weight: 700; font-size: 14px; line-height: 20px; letter-spacing: 0.3px; color: #3e235b; }"
+    },
+    {
+      "name": "Conditional Price Box",
+      "kind": "custom",
+      "refersTo": "conditional-price",
+      "description": "Lavender box showing discounted price with info icon.",
+      "html": "<div class=\"ds-conditional\"><div class=\"ds-conditional-label\"><span>Prijs met voorwaardelijke korting</span><svg class=\"ds-conditional-info\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 1.667A8.333 8.333 0 1 0 10 18.333 8.333 8.333 0 0 0 10 1.667Zm0 12.5a.833.833 0 0 1-.833-.834V10a.833.833 0 1 1 1.666 0v3.333a.833.833 0 0 1-.833.834ZM10.833 7.5H9.167V5.833h1.666V7.5Z\" fill=\"#2F2D2D\"/></svg></div><div class=\"ds-conditional-price\"><span class=\"ds-conditional-amount\">&euro; 102,45</span><span class=\"ds-conditional-period\">per maand</span></div></div>",
+      "css": ".ds-conditional { background: #e8e6f4; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px; } .ds-conditional-label { display: flex; align-items: center; gap: 8px; font-family: Etelka, system-ui, sans-serif; font-size: 16px; line-height: 24px; letter-spacing: 0.3px; color: #2f2d2d; } .ds-conditional-info { width: 20px; height: 20px; flex-shrink: 0; } .ds-conditional-price { display: flex; align-items: flex-end; gap: 8px; } .ds-conditional-amount { font-weight: 700; font-size: 20px; line-height: 28px; color: #2f2d2d; } .ds-conditional-period { font-weight: 300; font-size: 14px; line-height: 24px; letter-spacing: 0.3px; }"
+    },
+    {
+      "name": "Feature List Item",
+      "kind": "custom",
+      "refersTo": "feature-item",
+      "description": "Green checkmark with feature text.",
+      "html": "<li class=\"ds-feature\"><svg class=\"ds-feature-icon\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z\" fill=\"#009B65\"/></svg><span class=\"ds-feature-text\">Variabele prijs</span></li>",
+      "css": ".ds-feature { display: flex; align-items: center; gap: 4px; list-style: none; } .ds-feature-icon { width: 24px; height: 24px; flex-shrink: 0; } .ds-feature-text { font-family: Etelka, system-ui, sans-serif; font-size: 16px; line-height: 24px; letter-spacing: 0.3px; color: #2f2d2d; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Transparent Meter",
+    "overview": "Clean, honest, utilitarian. The SMA-BE pricing system treats clarity as its entire personality — like a well-designed utility bill where every number is immediately findable and every condition is spelled out. The interface steps back so the pricing speaks.\n\nThe visual language is deliberately restrained: white cards on a warm grey canvas, a single green for all actionable elements, and purple reserved exclusively for promotional ribbons. Density is comfortable but not spacious — pricing comparisons need proximity to work.",
+    "keyCharacteristics": [
+      "Subgrid-aligned cards ensure row-level horizontal consistency across products",
+      "Purple is promotional only — never structural, never decorative",
+      "Green is action only — CTA buttons and checkmarks, nothing else",
+      "Content-driven height — cards grow to fit, never pad to match"
+    ],
+    "rules": [
+      { "name": "The Two-Hue Rule", "body": "Green and purple are the only chromatic colors in the system. Green means action; purple means promotion. If a new element needs color, it uses one of these two or it stays neutral.", "section": "colors" },
+      { "name": "The One Shadow Rule", "body": "Only cards have shadows. Everything inside a card is flat. Depth is conveyed through background color, never through nested shadows.", "section": "elevation" },
+      { "name": "The Weight Rule", "body": "Bold (700) means important or interactive. Regular (400) means informational. Light (300) means secondary context. No medium weights, no italic.", "section": "typography" }
+    ],
+    "dos": [
+      "Do use subgrid to keep card rows aligned — the entire comparison mechanic depends on horizontal consistency.",
+      "Do let cards grow to their content. A card with two features and one ribbon item is shorter; the subgrid handles it.",
+      "Do keep the ribbon visually attached to the card top — flush edges, no internal margin above.",
+      "Do use overflow: clip on cards to crop ribbon backgrounds cleanly at rounded corners."
+    ],
+    "donts": [
+      "Don't use purple outside of promotional ribbons and conditional price boxes.",
+      "Don't add shadows to anything inside a card — only the card itself casts a shadow.",
+      "Don't use medium font weights (500/600) — the system uses only 300, 400, and 700.",
+      "Don't add icons to buttons — the CTA is text-only by design.",
+      "Don't force equal card heights by padding — let subgrid handle alignment naturally."
+    ]
+  }
+}

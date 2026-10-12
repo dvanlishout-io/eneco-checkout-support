@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMA-BE Pricing Cards — Flush</title>
+  <style>
+    @font-face {
+      font-family: 'Etelka';
+      src: url('fonts/Etelka-Light.woff2') format('woff2'),
+           url('fonts/Etelka-Light.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Etelka';
+      src: url('fonts/Etelka-Text.woff2') format('woff2'),
+           url('fonts/Etelka-Text.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Etelka';
+      src: url('fonts/Etelka-Bold.woff2') format('woff2'),
+           url('fonts/Etelka-Bold.woff') format('woff');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-bg: #f8f6f6;
+      --color-card: #ffffff;
+      --color-text-primary: #2f2d2d;
+      --color-text-secondary: #716a6a;
+      --color-ribbon-bg: #e8e6f4;
+      --color-ribbon-border: #d0caef;
+      --color-ribbon-text: #3e235b;
+      --color-button: #007250;
+      --color-link: #007250;
+      --color-link-underline: #84dc99;
+      --color-check: #009B65;
+      --color-shadow: rgba(47, 45, 45, 0.12);
+      --radius-card: 16px;
+      --radius-button: 8px;
+      --radius-highlight: 8px;
+      --font: 'Etelka', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      font-weight: 400;
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      margin: 0;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: #fff;
+    }
+
+    .header__back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-primary);
+      text-decoration: none;
+    }
+
+    .header__back:hover { color: var(--color-link); }
+
+    .header__back svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .header__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .header__logo img {
+      height: 48px;
+      width: auto;
+    }
+
+    .header__close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-primary);
+    }
+
+    .header__close svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* ===== STEPPER ===== */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 12px 24px 0;
+      background: #fff;
+      border-bottom: 1px solid #e4e0e0;
+    }
+
+    .stepper__step {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 12px 0;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.3px;
+      color: var(--color-text-secondary);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .stepper__step--active {
+      font-weight: 700;
+      color: var(--color-text-primary);
+      border-bottom-color: var(--color-button);
+    }
+
+    .stepper__chevron {
+      width: 16px;
+      height: 16px;
+      margin: 0 12px;
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
+    }
+
+    /* ===== PAGE CONTENT ===== */
+    .page-content {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 48px 40px 60px;
+    }
+
+    .page-heading {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 44px;
+      color: var(--color-text-primary);
+      margin-bottom: 12px;
+    }
+
+    .page-intro {
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+      color: var(--color-text-secondary);
+      max-width: 880px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 1024px) {
+      .page-content { padding: 32px 16px 40px; }
+      .page-heading { font-size: 28px; line-height: 36px; }
+      .stepper { gap: 0; padding: 8px 16px 0; overflow-x: auto; }
+      .stepper__step { font-size: 13px; white-space: nowrap; }
+      .stepper__chevron { margin: 0 8px; }
+    }
+
+    /* ===== GRID ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 420px));
+      gap: 24px;
+      justify-content: center;
+      align-items: start;
+    }
+
+    /* ===== CARD (mobile: stacked) ===== */
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      overflow: clip;
+      box-shadow: 0px 4px 12px 0px var(--color-shadow);
+    }
+
+    .card__bg { display: none; }
+
+    /* — Ribbon — */
+    .card__ribbon:has(.ribbon__item) {
+      background: var(--color-ribbon-bg);
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ribbon__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ribbon__item--bordered {
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-ribbon-border);
+    }
+
+    .ribbon__icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .ribbon__text {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.3px;
+      color: var(--color-ribbon-text);
+    }
+
+    /* — Title — */
+    .card__title {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+      color: var(--color-text-primary);
+      padding: 0 24px;
+    }
+
+    /* — Features — */
+    .card__features {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0 24px;
+      list-style: none;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .feature__icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .feature__text {
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+      color: var(--color-text-primary);
+    }
+
+    /* — Price — */
+    .card__price {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      padding: 0 24px;
+    }
+
+    .price__euro {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    .price__amount {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 36px;
+    }
+
+    .price__period {
+      font-family: var(--font);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+      color: var(--color-text-secondary);
+    }
+
+    /* — Conditional price — */
+    .card__conditional { padding: 0 24px; }
+
+    .conditional__box:has(.conditional__label) {
+      background: var(--color-ribbon-bg);
+      border-radius: var(--radius-highlight);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .conditional__label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+      color: var(--color-text-primary);
+    }
+
+    .conditional__info {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .conditional__price {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .conditional__price-amount {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 28px;
+      color: var(--color-text-primary);
+    }
+
+    .conditional__price-period {
+      font-family: var(--font);
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+    }
+
+    /* — CTA — */
+    .card__cta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 24px;
+    }
+
+    .cta__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 60px;
+      background: var(--color-button);
+      color: #fff;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      text-decoration: none;
+      border-radius: var(--radius-button);
+      transition: background 0.15s;
+    }
+
+    .cta__button:hover { background: #005a3e; }
+
+    .cta__link {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      color: var(--color-link);
+      text-decoration: none;
+      width: fit-content;
+      padding: 6px 0;
+    }
+
+    .cta__link::after {
+      content: '';
+      display: block;
+      height: 2px;
+      background: var(--color-link-underline);
+    }
+
+    /* — Footnotes — */
+    .card__footnotes:has(.footnote) { padding: 0 24px 24px; }
+
+    .footnote {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.3px;
+      color: var(--color-text-secondary);
+    }
+
+    .footnote__asterisk { flex-shrink: 0; }
+    .footnote__text p + p { margin-top: 8px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .pricing-grid { gap: 16px; }
+    }
+
+    /* ===== FLUSH MODE (desktop) ===== */
+    @media (min-width: 1228px) {
+      .pricing-grid {
+        --flush-py: 12px;
+        --flush-py-outer: 24px;
+        grid-template-columns: repeat(3, minmax(360px, 420px));
+        grid-template-rows: repeat(7, auto);
+        row-gap: 0;
+        column-gap: 24px;
+      }
+
+      .card {
+        display: contents;
+        background: none;
+        box-shadow: none;
+        border-radius: 0;
+        overflow: visible;
+      }
+      .card > * { grid-column: var(--col); }
+
+      /* Row map */
+      .card__bg          { grid-row: 2 / 8; }
+      .card__ribbon      { grid-row: 1; }
+      .card__title       { grid-row: 2; }
+      .card__features    { grid-row: 3; }
+      .card__price       { grid-row: 4; }
+      .card__conditional { grid-row: 5; }
+      .card__cta         { grid-row: 6; }
+      .card__footnotes   { grid-row: 7; }
+
+      /* Card surface */
+      .card__bg {
+        display: block;
+        background: var(--color-card);
+        border-radius: var(--radius-card);
+        box-shadow: 0px 4px 12px 0px var(--color-shadow);
+        align-self: stretch;
+        z-index: 0;
+        position: relative;
+      }
+      .card > *:not(.card__bg) {
+        z-index: 1;
+        position: relative;
+      }
+
+      /* Vertical rhythm */
+      .card__title,
+      .card__features,
+      .card__price,
+      .card__conditional,
+      .card__cta {
+        padding-block: var(--flush-py);
+      }
+      .card__title { padding-top: var(--flush-py-outer); }
+      .card__cta { padding-bottom: var(--flush-py-outer); }
+      .card__footnotes:has(.footnote) {
+        padding-block: 0 var(--flush-py-outer);
+      }
+
+      /* Ribbon tab */
+      .card__ribbon:has(.ribbon__item) {
+        align-self: end;
+        border-radius: var(--radius-card) var(--radius-card) 0 0;
+      }
+
+      /* Content-driven shape */
+      .card:has(.ribbon__item) .card__bg {
+        border-radius: 0 0 var(--radius-card) var(--radius-card);
+      }
+      .card:not(:has(.footnote)) .card__bg {
+        grid-row-end: 7;
+      }
+
+      /* Collapse empties */
+      .card__ribbon:empty,
+      .card__conditional:empty,
+      .card__footnotes:empty {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="#" class="header__back">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Vorige
+    </a>
+    <div class="header__logo">
+      <img src="eneco-logo.png" alt="Eneco">
+    </div>
+    <button class="header__close" aria-label="Sluiten">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </header>
+
+  <nav class="stepper" aria-label="Stappen">
+    <span class="stepper__step">1. Berekening</span>
+    <svg class="stepper__chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="stepper__step stepper__step--active">2. Aanbod</span>
+    <svg class="stepper__chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="stepper__step">3. Gegevens</span>
+    <svg class="stepper__chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="stepper__step">4. Overzicht</span>
+    <svg class="stepper__chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="stepper__step">5. Bevestiging</span>
+  </nav>
+
+  <main class="page-content">
+    <h1 class="page-heading">Onze voorstellen op basis van je gegevens</h1>
+    <p class="page-intro">De weergegeven prijzen zijn indicatief en berekend op basis van jouw opgegeven verbruik en huidige marktprijzen. Je definitieve tarief kan verschillen afhankelijk van jouw exacte verbruikspatroon en de marktomstandigheden op het moment van overstap.</p>
+
+    <div class="pricing-grid">
+
+    <article class="card">
+      <div class="card__bg"></div>
+      <div class="card__ribbon">
+        <div class="ribbon__item ribbon__item--bordered">
+          <svg class="ribbon__icon" viewBox="0 0 19.58 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.178 10.833V18.333H5.915C4.45 18.333 3.263 17.12 3.263 15.625v-4.792h5.915Zm7.139 0v4.792c0 1.496-1.187 2.708-2.652 2.708H10.402v-7.5h5.915ZM11.83 1.667c1.464 0 2.652 1.212 2.652 2.708 0 .537-.154 1.038-.418 1.46l2.05-.002c.563 0 1.02.389 1.02.868v2.431c0 .48-.457.868-1.02.868l-5.712-.001V5.833H9.178V10L3.467 10c-.563 0-1.02-.389-1.02-.868V6.7c0-.48.457-.868 1.02-.868l2.05.001a2.727 2.727 0 0 1-.418-1.459c0-1.496 1.187-2.708 2.652-2.708.82 0 1.554.381 2.04.978a2.618 2.618 0 0 1 2.04-.978ZM7.75 2.917c-.788 0-1.427.653-1.427 1.458 0 .765.577 1.393 1.31 1.453l.118.005h1.428V4.375l-.005-.12c-.06-.749-.673-1.338-1.423-1.338Zm4.08 0c-.789 0-1.428.653-1.428 1.458v1.458h1.428c.789 0 1.428-.653 1.428-1.458s-.64-1.458-1.428-1.458Z" fill="#3E235B"/></svg>
+          <span class="ribbon__text">Zon &amp; Wind Flex One: &euro;100 korting</span>
+        </div>
+        <div class="ribbon__item">
+          <svg class="ribbon__icon" viewBox="0 0 19.58 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.178 10.833V18.333H5.915C4.45 18.333 3.263 17.12 3.263 15.625v-4.792h5.915Zm7.139 0v4.792c0 1.496-1.187 2.708-2.652 2.708H10.402v-7.5h5.915ZM11.83 1.667c1.464 0 2.652 1.212 2.652 2.708 0 .537-.154 1.038-.418 1.46l2.05-.002c.563 0 1.02.389 1.02.868v2.431c0 .48-.457.868-1.02.868l-5.712-.001V5.833H9.178V10L3.467 10c-.563 0-1.02-.389-1.02-.868V6.7c0-.48.457-.868 1.02-.868l2.05.001a2.727 2.727 0 0 1-.418-1.459c0-1.496 1.187-2.708 2.652-2.708.82 0 1.554.381 2.04.978a2.618 2.618 0 0 1 2.04-.978ZM7.75 2.917c-.788 0-1.427.653-1.427 1.458 0 .765.577 1.393 1.31 1.453l.118.005h1.428V4.375l-.005-.12c-.06-.749-.673-1.338-1.423-1.338Zm4.08 0c-.789 0-1.428.653-1.428 1.458v1.458h1.428c.789 0 1.428-.653 1.428-1.458s-.64-1.458-1.428-1.458Z" fill="#3E235B"/></svg>
+          <span class="ribbon__text">Aardgas Flex One: &euro;100 korting</span>
+        </div>
+      </div>
+      <h2 class="card__title">Zon &amp; Wind Flex One +<br>Aardgas Flex One</h2>
+      <ul class="card__features">
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Variabele prijs</span>
+        </li>
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Profiteer meteen van prijsdalingen</span>
+        </li>
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">100% groene en Belgische elektriciteit</span>
+        </li>
+      </ul>
+      <div class="card__price">
+        <span class="price__euro">&euro;</span>
+        <span class="price__amount">119,12</span>
+        <span class="price__period">per maand</span>
+      </div>
+      <div class="card__conditional">
+        <div class="conditional__box">
+          <div class="conditional__label">
+            <span>Prijs met voorwaardelijke korting</span>
+            <svg class="conditional__info" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.667A8.333 8.333 0 1 0 10 18.333 8.333 8.333 0 0 0 10 1.667Zm0 12.5a.833.833 0 0 1-.833-.834V10a.833.833 0 1 1 1.666 0v3.333a.833.833 0 0 1-.833.834ZM10.833 7.5H9.167V5.833h1.666V7.5Z" fill="#2F2D2D"/></svg>
+          </div>
+          <div class="conditional__price">
+            <span class="conditional__price-amount">&euro; 102,45</span>
+            <span class="conditional__price-period">per maand</span>
+          </div>
+        </div>
+      </div>
+      <div class="card__cta">
+        <a class="cta__button" href="#">Product selecteren</a>
+        <a class="cta__link" href="#">Bekijk de details</a>
+      </div>
+      <footer class="card__footnotes">
+        <div class="footnote">
+          <span class="footnote__asterisk">*</span>
+          <div class="footnote__text">
+            <p>Zon &amp; Wind Flex One: 100&euro; korting en 2,40 &euro;c/kWh korting. Aanbod geldig tot en met 18/09/2026</p>
+            <p>Aardgas Flex One: 100&euro; korting en 7,00 &euro;c/kWh korting. Aanbod geldig tot en met 18/09/2026</p>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <article class="card">
+      <div class="card__bg"></div>
+      <div class="card__ribbon">
+        <div class="ribbon__item">
+          <svg class="ribbon__icon" viewBox="0 0 19.58 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.178 10.833V18.333H5.915C4.45 18.333 3.263 17.12 3.263 15.625v-4.792h5.915Zm7.139 0v4.792c0 1.496-1.187 2.708-2.652 2.708H10.402v-7.5h5.915ZM11.83 1.667c1.464 0 2.652 1.212 2.652 2.708 0 .537-.154 1.038-.418 1.46l2.05-.002c.563 0 1.02.389 1.02.868v2.431c0 .48-.457.868-1.02.868l-5.712-.001V5.833H9.178V10L3.467 10c-.563 0-1.02-.389-1.02-.868V6.7c0-.48.457-.868 1.02-.868l2.05.001a2.727 2.727 0 0 1-.418-1.459c0-1.496 1.187-2.708 2.652-2.708.82 0 1.554.381 2.04.978a2.618 2.618 0 0 1 2.04-.978ZM7.75 2.917c-.788 0-1.427.653-1.427 1.458 0 .765.577 1.393 1.31 1.453l.118.005h1.428V4.375l-.005-.12c-.06-.749-.673-1.338-1.423-1.338Zm4.08 0c-.789 0-1.428.653-1.428 1.458v1.458h1.428c.789 0 1.428-.653 1.428-1.458s-.64-1.458-1.428-1.458Z" fill="#3E235B"/></svg>
+          <span class="ribbon__text">Zon &amp; Wind Flex One: &euro;100 korting</span>
+        </div>
+      </div>
+      <h2 class="card__title">Zon &amp; Wind Flex One +<br>Aardgas Fix One</h2>
+      <ul class="card__features">
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Variabele prijs</span>
+        </li>
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Profiteer meteen van prijsdalingen</span>
+        </li>
+      </ul>
+      <div class="card__price">
+        <span class="price__euro">&euro;</span>
+        <span class="price__amount">119,12</span>
+        <span class="price__period">per maand</span>
+      </div>
+      <div class="card__conditional">
+        <div class="conditional__box">
+          <div class="conditional__label">
+            <span>Prijs met voorwaardelijke korting</span>
+            <svg class="conditional__info" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.667A8.333 8.333 0 1 0 10 18.333 8.333 8.333 0 0 0 10 1.667Zm0 12.5a.833.833 0 0 1-.833-.834V10a.833.833 0 1 1 1.666 0v3.333a.833.833 0 0 1-.833.834ZM10.833 7.5H9.167V5.833h1.666V7.5Z" fill="#2F2D2D"/></svg>
+          </div>
+          <div class="conditional__price">
+            <span class="conditional__price-amount">&euro; 102,45</span>
+            <span class="conditional__price-period">per maand</span>
+          </div>
+        </div>
+      </div>
+      <div class="card__cta">
+        <a class="cta__button" href="#">Product selecteren</a>
+        <a class="cta__link" href="#">Bekijk de details</a>
+      </div>
+      <footer class="card__footnotes">
+        <div class="footnote">
+          <span class="footnote__asterisk">*</span>
+          <div class="footnote__text">
+            <p>Zon &amp; Wind Flex One: 100&euro; korting en 2,40 &euro;c/kWh korting. Aanbod geldig tot en met 18/09/2026</p>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <article class="card">
+      <div class="card__bg"></div>
+      <div class="card__ribbon"></div>
+      <h2 class="card__title">Zon &amp; Wind Vast +<br>Aardgas Vast</h2>
+      <ul class="card__features">
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Variabele prijs</span>
+        </li>
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Profiteer meteen van prijsdalingen</span>
+        </li>
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">100% groene en Belgische elektriciteit</span>
+        </li>
+      </ul>
+      <div class="card__price">
+        <span class="price__euro">&euro;</span>
+        <span class="price__amount">119,12</span>
+        <span class="price__period">per maand</span>
+      </div>
+      <div class="card__conditional"></div>
+      <div class="card__cta">
+        <a class="cta__button" href="#">Product selecteren</a>
+        <a class="cta__link" href="#">Bekijk de details</a>
+      </div>
+      <footer class="card__footnotes"></footer>
+    </article>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.pricing-grid .card').forEach((card, i) => {
+      card.style.setProperty('--col', i + 1);
+    });
+  </script>
+
+</body>
+</html>
