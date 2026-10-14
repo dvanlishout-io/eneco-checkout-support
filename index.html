@@ -507,16 +507,12 @@
 
     @media (min-width: 1228px) {
       .pricing-grid--four {
-        grid-template-columns: repeat(4, minmax(0, 340px));
+        grid-template-columns: repeat(4, 1fr);
       }
 
       .pricing-grid--four .card.card--extra {
         display: contents !important;
       }
-    }
-
-    .page-content:has(.pricing-grid--four) {
-      max-width: 1580px;
     }
 
     /* ===== SUPPORT FABS ===== */
@@ -640,7 +636,7 @@
       .pricing-grid {
         --flush-py: 12px;
         --flush-py-outer: 24px;
-        grid-template-columns: repeat(3, minmax(360px, 420px));
+        grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(7, auto);
         row-gap: 0;
         column-gap: 24px;
