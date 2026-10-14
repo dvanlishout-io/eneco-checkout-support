@@ -505,16 +505,6 @@
       display: flex !important;
     }
 
-    @media (min-width: 1228px) {
-      .pricing-grid--four {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .pricing-grid--four .card.card--extra {
-        display: contents !important;
-      }
-    }
-
     /* ===== SUPPORT FABS ===== */
     .support-fabs {
       position: fixed;
@@ -709,6 +699,15 @@
       .card__conditional:empty,
       .card__footnotes:empty {
         display: none;
+      }
+
+      /* 4-card override */
+      .pricing-grid--four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .pricing-grid--four .card.card--extra {
+        display: contents !important;
       }
     }
   </style>
