@@ -497,12 +497,12 @@
     }
 
     /* 4th card hidden by default */
-    .card--extra {
-      display: none;
+    .card.card--extra {
+      display: none !important;
     }
 
-    .pricing-grid--four .card--extra {
-      display: flex;
+    .pricing-grid--four .card.card--extra {
+      display: flex !important;
     }
 
     @media (min-width: 1228px) {
@@ -510,8 +510,8 @@
         grid-template-columns: repeat(4, minmax(280px, 340px));
       }
 
-      .pricing-grid--four .card--extra {
-        display: contents;
+      .pricing-grid--four .card.card--extra {
+        display: contents !important;
       }
     }
 
