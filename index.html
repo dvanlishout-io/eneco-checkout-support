@@ -225,11 +225,6 @@
       gap: 8px;
     }
 
-    .ribbon__item--bordered {
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--color-ribbon-border);
-    }
-
     .ribbon__icon {
       width: 20px;
       height: 20px;
@@ -446,72 +441,6 @@
     .footnote__asterisk { flex-shrink: 0; }
     .footnote__text p + p { margin-top: 8px; }
 
-    /* ===== VERSION TOGGLE ===== */
-    .version-toggle {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .version-toggle__label {
-      font-family: var(--font);
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.3px;
-      color: var(--color-text-secondary);
-    }
-
-    .version-toggle__label--active {
-      font-weight: 700;
-      color: var(--color-text-primary);
-    }
-
-    .version-toggle__switch {
-      position: relative;
-      width: 44px;
-      height: 24px;
-      background: #d0caef;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
-
-    .version-toggle__switch::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 20px;
-      height: 20px;
-      background: #fff;
-      border-radius: 50%;
-      transition: transform 0.2s;
-    }
-
-    .version-toggle__switch[aria-checked="true"] {
-      background: var(--color-button);
-    }
-
-    .version-toggle__switch[aria-checked="true"]::after {
-      transform: translateX(20px);
-    }
-
-    /* ===== RIBBON TOGGLE: combined (default) vs split ===== */
-    .card__ribbon--split {
-      display: none !important;
-    }
-
-    .pricing-grid--split .card__ribbon--split {
-      display: flex !important;
-    }
-
-    .pricing-grid--split .card__ribbon--combined {
-      display: none !important;
-    }
 
     /* ===== SUPPORT FABS ===== */
     .support-fabs {
@@ -742,27 +671,11 @@
     <h1 class="page-heading">Onze voorstellen op basis van je gegevens</h1>
     <p class="page-intro">De weergegeven prijzen zijn indicatief en berekend op basis van jouw opgegeven verbruik en huidige marktprijzen. Je definitieve tarief kan verschillen afhankelijk van jouw exacte verbruikspatroon en de marktomstandigheden op het moment van overstap.</p>
 
-    <div class="version-toggle">
-      <span class="version-toggle__label version-toggle__label--active" id="label-a">Promo in 1 blok</span>
-      <button class="version-toggle__switch" role="switch" aria-checked="false" aria-label="Wissel promo weergave" id="promo-toggle"></button>
-      <span class="version-toggle__label" id="label-b">Promo in 2 blokken</span>
-    </div>
-
     <div class="pricing-grid">
 
     <article class="card">
       <div class="card__bg"></div>
-      <div class="card__ribbon card__ribbon--split">
-        <div class="ribbon__item ribbon__item--bordered">
-          <svg class="ribbon__icon" viewBox="0 0 19.58 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.178 10.833V18.333H5.915C4.45 18.333 3.263 17.12 3.263 15.625v-4.792h5.915Zm7.139 0v4.792c0 1.496-1.187 2.708-2.652 2.708H10.402v-7.5h5.915ZM11.83 1.667c1.464 0 2.652 1.212 2.652 2.708 0 .537-.154 1.038-.418 1.46l2.05-.002c.563 0 1.02.389 1.02.868v2.431c0 .48-.457.868-1.02.868l-5.712-.001V5.833H9.178V10L3.467 10c-.563 0-1.02-.389-1.02-.868V6.7c0-.48.457-.868 1.02-.868l2.05.001a2.727 2.727 0 0 1-.418-1.459c0-1.496 1.187-2.708 2.652-2.708.82 0 1.554.381 2.04.978a2.618 2.618 0 0 1 2.04-.978ZM7.75 2.917c-.788 0-1.427.653-1.427 1.458 0 .765.577 1.393 1.31 1.453l.118.005h1.428V4.375l-.005-.12c-.06-.749-.673-1.338-1.423-1.338Zm4.08 0c-.789 0-1.428.653-1.428 1.458v1.458h1.428c.789 0 1.428-.653 1.428-1.458s-.64-1.458-1.428-1.458Z" fill="#3E235B"/></svg>
-          <span class="ribbon__text">Zon &amp; Wind Flex One: &euro;100 korting</span>
-        </div>
-        <div class="ribbon__item">
-          <svg class="ribbon__icon" viewBox="0 0 19.58 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.178 10.833V18.333H5.915C4.45 18.333 3.263 17.12 3.263 15.625v-4.792h5.915Zm7.139 0v4.792c0 1.496-1.187 2.708-2.652 2.708H10.402v-7.5h5.915ZM11.83 1.667c1.464 0 2.652 1.212 2.652 2.708 0 .537-.154 1.038-.418 1.46l2.05-.002c.563 0 1.02.389 1.02.868v2.431c0 .48-.457.868-1.02.868l-5.712-.001V5.833H9.178V10L3.467 10c-.563 0-1.02-.389-1.02-.868V6.7c0-.48.457-.868 1.02-.868l2.05.001a2.727 2.727 0 0 1-.418-1.459c0-1.496 1.187-2.708 2.652-2.708.82 0 1.554.381 2.04.978a2.618 2.618 0 0 1 2.04-.978ZM7.75 2.917c-.788 0-1.427.653-1.427 1.458 0 .765.577 1.393 1.31 1.453l.118.005h1.428V4.375l-.005-.12c-.06-.749-.673-1.338-1.423-1.338Zm4.08 0c-.789 0-1.428.653-1.428 1.458v1.458h1.428c.789 0 1.428-.653 1.428-1.458s-.64-1.458-1.428-1.458Z" fill="#3E235B"/></svg>
-          <span class="ribbon__text">Aardgas Flex One: &euro;100 korting</span>
-        </div>
-      </div>
-      <div class="card__ribbon card__ribbon--combined">
+      <div class="card__ribbon">
         <div class="ribbon__item">
           <svg class="ribbon__icon" viewBox="0 0 19.58 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.178 10.833V18.333H5.915C4.45 18.333 3.263 17.12 3.263 15.625v-4.792h5.915Zm7.139 0v4.792c0 1.496-1.187 2.708-2.652 2.708H10.402v-7.5h5.915ZM11.83 1.667c1.464 0 2.652 1.212 2.652 2.708 0 .537-.154 1.038-.418 1.46l2.05-.002c.563 0 1.02.389 1.02.868v2.431c0 .48-.457.868-1.02.868l-5.712-.001V5.833H9.178V10L3.467 10c-.563 0-1.02-.389-1.02-.868V6.7c0-.48.457-.868 1.02-.868l2.05.001a2.727 2.727 0 0 1-.418-1.459c0-1.496 1.187-2.708 2.652-2.708.82 0 1.554.381 2.04.978a2.618 2.618 0 0 1 2.04-.978ZM7.75 2.917c-.788 0-1.427.653-1.427 1.458 0 .765.577 1.393 1.31 1.453l.118.005h1.428V4.375l-.005-.12c-.06-.749-.673-1.338-1.423-1.338Zm4.08 0c-.789 0-1.428.653-1.428 1.458v1.458h1.428c.789 0 1.428-.653 1.428-1.458s-.64-1.458-1.428-1.458Z" fill="#3E235B"/></svg>
           <span class="ribbon__text">Zon &amp; Wind Flex One: &euro;100 korting &amp; Aardgas Flex One: &euro;100 korting</span>
@@ -917,18 +830,6 @@
       card.style.setProperty('--col', i + 1);
     });
 
-    const toggle = document.getElementById('promo-toggle');
-    const grid = document.querySelector('.pricing-grid');
-    const labelA = document.getElementById('label-a');
-    const labelB = document.getElementById('label-b');
-
-    toggle.addEventListener('click', () => {
-      const split = toggle.getAttribute('aria-checked') !== 'true';
-      toggle.setAttribute('aria-checked', split);
-      grid.classList.toggle('pricing-grid--split', split);
-      labelA.classList.toggle('version-toggle__label--active', !split);
-      labelB.classList.toggle('version-toggle__label--active', split);
-    });
   </script>
 
 </body>
