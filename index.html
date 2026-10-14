@@ -507,12 +507,16 @@
 
     @media (min-width: 1228px) {
       .pricing-grid--four {
-        grid-template-columns: repeat(4, minmax(280px, 340px));
+        grid-template-columns: repeat(4, minmax(0, 340px));
       }
 
       .pricing-grid--four .card.card--extra {
         display: contents !important;
       }
+    }
+
+    .page-content:has(.pricing-grid--four) {
+      max-width: 1580px;
     }
 
     /* ===== SUPPORT FABS ===== */
