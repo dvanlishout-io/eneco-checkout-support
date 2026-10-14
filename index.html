@@ -500,17 +500,17 @@
       transform: translateX(20px);
     }
 
-    /* ===== RIBBON TOGGLE: split vs combined ===== */
-    .card__ribbon--combined {
+    /* ===== RIBBON TOGGLE: combined (default) vs split ===== */
+    .card__ribbon--split {
       display: none !important;
     }
 
-    .pricing-grid--combined .card__ribbon--split {
-      display: none !important;
-    }
-
-    .pricing-grid--combined .card__ribbon--combined {
+    .pricing-grid--split .card__ribbon--split {
       display: flex !important;
+    }
+
+    .pricing-grid--split .card__ribbon--combined {
+      display: none !important;
     }
 
     /* ===== SUPPORT FABS ===== */
@@ -743,9 +743,9 @@
     <p class="page-intro">De weergegeven prijzen zijn indicatief en berekend op basis van jouw opgegeven verbruik en huidige marktprijzen. Je definitieve tarief kan verschillen afhankelijk van jouw exacte verbruikspatroon en de marktomstandigheden op het moment van overstap.</p>
 
     <div class="version-toggle">
-      <span class="version-toggle__label version-toggle__label--active" id="label-a">Per product</span>
+      <span class="version-toggle__label version-toggle__label--active" id="label-a">Promo in 1 blok</span>
       <button class="version-toggle__switch" role="switch" aria-checked="false" aria-label="Wissel promo weergave" id="promo-toggle"></button>
-      <span class="version-toggle__label" id="label-b">Gecombineerd</span>
+      <span class="version-toggle__label" id="label-b">Promo in 2 blokken</span>
     </div>
 
     <div class="pricing-grid">
@@ -923,11 +923,11 @@
     const labelB = document.getElementById('label-b');
 
     toggle.addEventListener('click', () => {
-      const combined = toggle.getAttribute('aria-checked') !== 'true';
-      toggle.setAttribute('aria-checked', combined);
-      grid.classList.toggle('pricing-grid--combined', combined);
-      labelA.classList.toggle('version-toggle__label--active', !combined);
-      labelB.classList.toggle('version-toggle__label--active', combined);
+      const split = toggle.getAttribute('aria-checked') !== 'true';
+      toggle.setAttribute('aria-checked', split);
+      grid.classList.toggle('pricing-grid--split', split);
+      labelA.classList.toggle('version-toggle__label--active', !split);
+      labelB.classList.toggle('version-toggle__label--active', split);
     });
   </script>
 
