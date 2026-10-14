@@ -442,6 +442,79 @@
     .footnote__text p + p { margin-top: 8px; }
 
 
+    /* ===== CARD COUNT TOGGLE ===== */
+    .card-toggle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .card-toggle__label {
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.3px;
+      color: var(--color-text-secondary);
+    }
+
+    .card-toggle__label--active {
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .card-toggle__switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: #d0caef;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .card-toggle__switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .card-toggle__switch[aria-checked="true"] {
+      background: var(--color-button);
+    }
+
+    .card-toggle__switch[aria-checked="true"]::after {
+      transform: translateX(20px);
+    }
+
+    /* 4th card hidden by default */
+    .card--extra {
+      display: none;
+    }
+
+    .pricing-grid--four .card--extra {
+      display: flex;
+    }
+
+    @media (min-width: 1228px) {
+      .pricing-grid--four {
+        grid-template-columns: repeat(4, minmax(280px, 340px));
+      }
+
+      .pricing-grid--four .card--extra {
+        display: contents;
+      }
+    }
+
     /* ===== SUPPORT FABS ===== */
     .support-fabs {
       position: fixed;
@@ -671,6 +744,12 @@
     <h1 class="page-heading">Onze voorstellen op basis van je gegevens</h1>
     <p class="page-intro">De weergegeven prijzen zijn indicatief en berekend op basis van jouw opgegeven verbruik en huidige marktprijzen. Je definitieve tarief kan verschillen afhankelijk van jouw exacte verbruikspatroon en de marktomstandigheden op het moment van overstap.</p>
 
+    <div class="card-toggle">
+      <span class="card-toggle__label card-toggle__label--active" id="label-3">3 producten</span>
+      <button class="card-toggle__switch" role="switch" aria-checked="false" aria-label="Toon 4 producten" id="card-toggle"></button>
+      <span class="card-toggle__label" id="label-4">4 producten</span>
+    </div>
+
     <div class="pricing-grid">
 
     <article class="card">
@@ -811,6 +890,37 @@
       <footer class="card__footnotes"></footer>
     </article>
 
+    <article class="card card--extra">
+      <div class="card__bg"></div>
+      <div class="card__ribbon"></div>
+      <h2 class="card__title">Zon &amp; Wind Vast +<br>Aardgas Fix One</h2>
+      <ul class="card__features">
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Vaste prijs</span>
+        </li>
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">Zekerheid over je maandbedrag</span>
+        </li>
+        <li class="feature">
+          <svg class="feature__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18a1 1 0 0 1-.71-.29l-4-4a1.004 1.004 0 1 1 1.42-1.42L9 15.59l9.29-9.3a1.004 1.004 0 0 1 1.42 1.42l-10 10A1 1 0 0 1 9 18Z" fill="#009B65"/></svg>
+          <span class="feature__text">100% groene en Belgische elektriciteit</span>
+        </li>
+      </ul>
+      <div class="card__price">
+        <span class="price__euro">&euro;</span>
+        <span class="price__amount">112,80</span>
+        <span class="price__period">per maand</span>
+      </div>
+      <div class="card__conditional"></div>
+      <div class="card__cta">
+        <a class="cta__button" href="#">Product selecteren</a>
+        <a class="cta__link" href="#">Bekijk de details</a>
+      </div>
+      <footer class="card__footnotes"></footer>
+    </article>
+
     </div>
   </main>
 
@@ -826,10 +936,23 @@
   </div>
 
   <script>
-    document.querySelectorAll('.pricing-grid .card').forEach((card, i) => {
+    const cards = document.querySelectorAll('.pricing-grid .card');
+    cards.forEach((card, i) => {
       card.style.setProperty('--col', i + 1);
     });
 
+    const toggle = document.getElementById('card-toggle');
+    const grid = document.querySelector('.pricing-grid');
+    const label3 = document.getElementById('label-3');
+    const label4 = document.getElementById('label-4');
+
+    toggle.addEventListener('click', () => {
+      const show4 = toggle.getAttribute('aria-checked') !== 'true';
+      toggle.setAttribute('aria-checked', show4);
+      grid.classList.toggle('pricing-grid--four', show4);
+      label3.classList.toggle('card-toggle__label--active', !show4);
+      label4.classList.toggle('card-toggle__label--active', show4);
+    });
   </script>
 
 </body>
