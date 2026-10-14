@@ -507,7 +507,7 @@
 
     @media (min-width: 1228px) {
       .pricing-grid--four {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .pricing-grid--four .card.card--extra {
@@ -636,7 +636,7 @@
       .pricing-grid {
         --flush-py: 12px;
         --flush-py-outer: 24px;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: repeat(7, auto);
         row-gap: 0;
         column-gap: 24px;
