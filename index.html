@@ -446,6 +446,84 @@
     .footnote__asterisk { flex-shrink: 0; }
     .footnote__text p + p { margin-top: 8px; }
 
+    /* ===== SUPPORT FABS ===== */
+    .support-fabs {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      z-index: 1000;
+    }
+
+    .support-fab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 10px 0 rgba(47, 45, 45, 0.10);
+      transition: box-shadow 0.2s ease, transform 0.15s ease;
+      padding: 0;
+      position: relative;
+    }
+
+    .support-fab:hover {
+      box-shadow: 0 5px 16px 0 rgba(47, 45, 45, 0.18);
+      transform: scale(1.06);
+    }
+
+    .support-fab--chat {
+      background: #fff;
+    }
+
+    .support-fab--phone {
+      background: var(--color-ribbon-bg);
+    }
+
+    .support-fab svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .support-fab__label {
+      position: absolute;
+      right: calc(100% + 10px);
+      white-space: nowrap;
+      background: #fff;
+      color: var(--color-text-primary);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 20px;
+      letter-spacing: 0.3px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px 0 rgba(47, 45, 45, 0.12);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .support-fab:hover .support-fab__label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (min-width: 1228px) {
+      .support-fabs {
+        bottom: 32px;
+        right: 32px;
+      }
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .page-content { padding: 32px 24px 40px; }
@@ -743,6 +821,17 @@
 
     </div>
   </main>
+
+  <div class="support-fabs">
+    <button class="support-fab support-fab--phone" aria-label="Bel ons">
+      <span class="support-fab__label">Bel ons</span>
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.556 12.906l-.455.453s-1.083 1.076-4.038-1.862-1.872-4.014-1.872-4.014l.286-.286c.707-.702.774-1.83.157-2.654L9.374 3.01C8.61 2.048 7.204 1.907 6.336 2.77L4.659 4.438c-.53.527-.79 1.277-.72 2.044.18 1.929.86 5.803 4.546 9.47 3.686 3.668 7.584 4.34 9.523 4.516a2.7 2.7 0 002.052-.717l1.551-1.543c.904-.899.735-2.4-.34-3.073l-1.69-1.06c-.791-.496-1.81-.383-2.467.268l-.558.563z" fill="#3e235b"/></svg>
+    </button>
+    <button class="support-fab support-fab--chat" aria-label="Chat met Elli">
+      <span class="support-fab__label">Chat met Elli</span>
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="#007250"/><rect x="7" y="7" width="10" height="1.5" rx=".75" fill="#fff"/><rect x="7" y="10.5" width="7" height="1.5" rx=".75" fill="#fff"/></svg>
+    </button>
+  </div>
 
   <script>
     document.querySelectorAll('.pricing-grid .card').forEach((card, i) => {
